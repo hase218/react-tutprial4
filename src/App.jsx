@@ -28,7 +28,7 @@ export default function App() {
       
       return isIncludesTerm && isEqulaCategory;
     }))}
-    //.filter()
+
   },[allProducts, category, term])
 
   console.log(products);
