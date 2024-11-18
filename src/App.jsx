@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
+
 export default function App() {
   const [allProducts, setAllProducts] = useState();
   const [products, setProducts] = useState(allProducts);
   const [category, setCategory] = useState("All");
   const [term, setTerm] = useState("");
-  const [clicked, isClicked] = useState();
+  const [clicked, isClicked] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -14,14 +15,17 @@ export default function App() {
       const jsonData = await response.json();
       setAllProducts(jsonData);
       //.jsonも非同期だったネー
-      console.log(jsonData);
+      //console.log(jsonData);
     })();
   }, []);
 
   useEffect(() => {
+    console.log("clicked-", clicked);
+    //なんで二回も出てくるんだ？？？
+    
     if(allProducts){
     setProducts(allProducts.filter((product) => {
-      console.log(product.name, term);
+      //console.log(product.name, term);
       //console.log(product.type, category.toLowerCase());
        
       const isIncludesTerm = term === "" ? true : (product.name).includes(term);
@@ -29,12 +33,15 @@ export default function App() {
       
       return isIncludesTerm && isEqulaCategory;
     }))}
+    isClicked(false);
 
-  },[allProducts, category, term, clicked])
+    //console.log("clicked-", clicked);
 
-  console.log(products);
-  console.log(term);
-  console.log(category);
+  },[allProducts, clicked])
+
+  // console.log(products);
+  // console.log(term);
+  // console.log(category);
 
   if (!products) {
     return <></>
@@ -62,7 +69,7 @@ export default function App() {
               <input value={term}onChange={(event)=> {setTerm(event.target.value)}} type="text" id="searchTerm" placeholder="e.g. beans" />
             </div>
             <div>
-              <button type="button">Filter results</button>
+              <button onClick={(event)=> {isClicked(true)}} type="button">Filter results</button>
             </div>
           </form>
         </aside>
