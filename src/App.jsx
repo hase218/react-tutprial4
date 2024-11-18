@@ -6,6 +6,7 @@ export default function App() {
   const [products, setProducts] = useState(allProducts);
   const [category, setCategory] = useState("All");
   const [term, setTerm] = useState("");
+  const [clicked, isClicked] = useState();
 
   useEffect(() => {
     (async () => {
@@ -29,7 +30,7 @@ export default function App() {
       return isIncludesTerm && isEqulaCategory;
     }))}
 
-  },[allProducts, category, term])
+  },[allProducts, category, term, clicked])
 
   console.log(products);
   console.log(term);
@@ -61,7 +62,7 @@ export default function App() {
               <input value={term}onChange={(event)=> {setTerm(event.target.value)}} type="text" id="searchTerm" placeholder="e.g. beans" />
             </div>
             <div>
-              <button>Filter results</button>
+              <button type="button">Filter results</button>
             </div>
           </form>
         </aside>
