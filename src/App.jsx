@@ -20,9 +20,9 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    console.log("clicked-", clicked);
+    console.log("useEffect1 clicked=", clicked);
     //なんで二回も出てくるんだ？？？
-    
+
     if(allProducts){
     setProducts(allProducts.filter((product) => {
       //console.log(product.name, term);
@@ -35,7 +35,7 @@ export default function App() {
     }))}
     isClicked(false);
 
-    //console.log("clicked-", clicked);
+    console.log("useEffect2 clicked=", clicked);
 
   },[allProducts, clicked])
 
